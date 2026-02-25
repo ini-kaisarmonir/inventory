@@ -14,6 +14,13 @@ class Product extends Model
         'active_status',
     ];
 
+    protected $appends = ['current_stock'];
+
+    public function getCurrentStockAttribute()
+    {
+        return $this->stock?->quantity ?? 0;
+    }
+
     public function stock()
     {
         return $this->hasOne(Stock::class);

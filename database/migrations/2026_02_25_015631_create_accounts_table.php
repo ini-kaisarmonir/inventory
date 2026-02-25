@@ -21,7 +21,7 @@ return new class extends Migration
         'income',
         'expense'
     ]);
-    $table->string('code')->nullable()->unique();
+    $table->tinyInteger('code')->nullable()->unique();
 
     $table->boolean('is_active')->default(true);
 

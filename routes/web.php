@@ -11,6 +11,7 @@ Route::get('/login', [LoginController::class, 'show'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->middleware('auth')->name('logout');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
+Route::resource('products', \App\Http\Controllers\ProductController::class);
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard');

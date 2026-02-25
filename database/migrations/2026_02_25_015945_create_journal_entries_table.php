@@ -11,22 +11,27 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('journal_entries', function (Blueprint $table) {
-    $table->id();
+        Schema::create('journal_entries', function (Blueprint $table) {
+            $table->id();
 
-    $table->foreignId('journal_voucher_id')
-          ->constrained('journal_vouchers')
-          ->cascadeOnDelete();
+            $table->foreignId('journal_voucher_id')
+                ->constrained('journal_vouchers')
+                ->cascadeOnDelete();
 
-    $table->foreignId('account_id')
-          ->constrained('accounts')
-          ->cascadeOnDelete();
+            $table->foreignId('account_id')
+                ->constrained('accounts')
+                ->cascadeOnDelete();
 
-    $table->decimal('debit', 15, 2)->default(0);
-    $table->decimal('credit', 15, 2)->default(0);
+            $table->foreignId('customer_id')
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
 
-    $table->timestamps();
-});
+            $table->decimal('debit', 15, 2)->default(0);
+            $table->decimal('credit', 15, 2)->default(0);
+
+            $table->timestamps();
+        });
     }
 
     /**

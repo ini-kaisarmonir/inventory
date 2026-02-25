@@ -22,4 +22,9 @@ class JournalEntry extends Model
     {
         return $this->belongsTo(Account::class);
     }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }
