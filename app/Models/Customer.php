@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Enums\Role;
 
-class User extends Authenticatable
+class Customer extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -48,13 +48,13 @@ class User extends Authenticatable
         ];
     }
 
-    public function isAdmin()
+    public function sales()
     {
-        return $this->role === Role::ADMIN;
+        return $this->hasMany(Sale::class);
     }
 
-    public function isManager()
+    public function journalEntries()
     {
-        return $this->role === Role::MANAGER;
+        return $this->hasMany(JournalEntry::class);
     }
 }

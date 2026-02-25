@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Enums\Role;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Customer;
 use App\Enums\ActiveStatus;
 use Illuminate\Database\Seeder;
 
@@ -20,7 +21,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@example.com',
             'email_verified_at' => now(),
             'password' => Hash::make('123456'),
-            'status' => ActiveStatus::ACTIVE,
+            'active_status' => ActiveStatus::ACTIVE,
             'role' => Role::ADMIN,
         ]);
 
@@ -29,25 +30,25 @@ class UserSeeder extends Seeder
             'email' => 'employee@example.com',
             'email_verified_at' => now(),
             'password' => Hash::make('123456'),
-            'status' => ActiveStatus::ACTIVE,
+            'active_status' => ActiveStatus::ACTIVE,
             'role' => Role::MANAGER,
         ]);
 
-        User::create([
+        Customer::create([
             'name' => 'Mr Customer 2',
             'email' => 'customer2@example.com',
             'email_verified_at' => now(),
             'password' => Hash::make('123456'),
-            'status' => ActiveStatus::ACTIVE,
+            'active_status' => ActiveStatus::ACTIVE,
             'role' => Role::CUSTOMER,
         ]);
 
-        User::create([
+        Customer::create([
             'name' => 'Mr Customer',
             'email' => 'customer@example.com',
             'email_verified_at' => now(),
             'password' => Hash::make('123456'),
-            'status' => ActiveStatus::ACTIVE,
+            'active_status' => ActiveStatus::ACTIVE,
             'role' => Role::CUSTOMER,
         ]);
     }
