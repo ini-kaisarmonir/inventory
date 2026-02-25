@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Sale;
+use App\Enums\AccountCode;
 use App\Models\SaleItem;
 use App\Models\Product;
 use App\Models\Stock;
@@ -73,7 +74,7 @@ class SaleService
                 'paid' => $paid,
                 'due' => max($due,0),
                 'sale_date' => Carbon::today(),
-                'created_by' => auth()->id(),
+                'created_by' => auth()->guard('web')->id(),
             ]);
 
             // -------- items & stock reduction --------
@@ -96,19 +97,19 @@ class SaleService
             }
 
             // -------- accounts --------
-            $ar   = Account::where('code','1002')->first(); // receivable
-            $cash = Account::where('code','1001')->first();
-            $sales= Account::where('code','3001')->first();
-            $vat  = Account::where('code','2001')->first();
-            $cogs = Account::where('code','4002')->first();
-            $inventory = Account::where('code','1003')->first();
+            $ar   = Account::where('code',AccountCode::ACCOUNTS_RECEIVABLE)->first(); // receivable
+            $cash = Account::where('code',AccountCode::CASH)->first();
+            $sales= Account::where('code',AccountCode::SALES_REVENUE)->first();
+            $vat  = Account::where('code',AccountCode::VAT_PAYABLE)->first();
+            $cogs = Account::where('code',AccountCode::COST_OF_GOODS_SOLD)->first();
+            $inventory = Account::where('code',AccountCode::INVENTORY)->first();
 
             // -------- SALE VOUCHER --------
             $voucher = JournalVoucher::create([
                 'reference' => $sale->invoice_no,
                 'voucher_date' => Carbon::today(),
                 'description' => 'Sale Invoice',
-                'created_by' => auth()->id(),
+                'created_by' => auth()->guard('web')->id(),
             ]);
 
             // debit Accounts Receivable
@@ -145,7 +146,7 @@ class SaleService
                     'reference'=>$sale->invoice_no.'-PAY',
                     'voucher_date'=>Carbon::today(),
                     'description'=>'Customer payment',
-                    'created_by'=>auth()->id(),
+                    'created_by'=>auth()->guard('web')->id(),
                 ]);
 
                 // cash debit
@@ -171,7 +172,7 @@ class SaleService
                 'reference'=>$sale->invoice_no.'-COGS',
                 'voucher_date'=>Carbon::today(),
                 'description'=>'Cost of goods sold',
-                'created_by'=>auth()->id(),
+                'created_by'=>auth()->guard('web')->id(),
             ]);
 
             // debit COGS

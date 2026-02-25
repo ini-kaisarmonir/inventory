@@ -27,8 +27,6 @@
                     <p class="text-center text-gray-600 text-sm mb-4">Quick Login:</p>
                     <div class="grid grid-cols-2 gap-2">
                         <button type="button" onclick="populateCredentials('admin@example.com', '123456')" class="bg-green-500 text-white py-2 px-3 rounded-lg hover:bg-green-600 transition duration-200 text-sm font-semibold">Admin</button>
-                        <button type="button" onclick="populateCredentials('manager@example.com', '123456')" class="bg-blue-500 text-white py-2 px-3 rounded-lg hover:bg-blue-600 transition duration-200 text-sm font-semibold">Manager</button>
-                        <button type="button" onclick="populateCredentials('customer@example.com', '123456')" class="bg-orange-500 text-white py-2 px-3 rounded-lg hover:bg-orange-600 transition duration-200 text-sm font-semibold">Customer</button>
                     </div>
                 </div>
             </div>

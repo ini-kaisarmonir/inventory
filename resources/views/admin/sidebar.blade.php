@@ -13,12 +13,21 @@
             Dashboard
         </a>
 
-        @can('add-products')
-            <a href="{{ route('home') }}"
-                class="block px-4 py-2 rounded hover:bg-gray-100">
-                Tasks
-            </a>
-        @endcan
+        <a href="{{ route('products.index') }}"
+            class="block px-4 py-2 rounded hover:bg-gray-100">
+            Products
+        </a>
+
+        <a href="{{ route('sales.index') }}"
+            class="block px-4 py-2 rounded hover:bg-gray-100">
+            Sales
+        </a>
+
+
+        <a href="{{ route('report') }}"
+            class="block px-4 py-2 rounded hover:bg-gray-100">
+            Reports
+        </a>
     </nav>
 </aside>
 
