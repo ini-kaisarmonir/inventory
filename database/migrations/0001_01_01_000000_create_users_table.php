@@ -20,7 +20,7 @@ return new class extends Migration
             $table->tinyInteger('role')->default(Role::ADMIN);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->tinyInteger('status')->default(ActiveStatus::ACTIVE);
+            $table->tinyInteger('active_status')->default(ActiveStatus::ACTIVE);
             $table->rememberToken();
             $table->timestamps();
         });
