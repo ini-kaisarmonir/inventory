@@ -8,15 +8,23 @@ use Illuminate\Support\Facades\DB;
 
 class ReportService
 {
-    public function getReport($date)
+    public function getReport($request)
     {
-        $totalSale = Sale::whereDate('sale_date', $date)->sum('total');
+        $date = $request->get('date');
+
+        $totalSale = Sale::query()
+            ->when($date, function ($query) use ($date) {
+                $query->whereDate('sale_date', $date);
+            })
+            ->sum('total');
 
         $totalExpense = JournalEntry::whereHas('account', function ($q) {
             $q->where('type', 'expense');
         })
-            ->whereHas('voucher', function ($q) use ($date) {
-                $q->whereDate('voucher_date', $date);
+            ->when($date, function ($query) use ($date) {
+                $query->whereHas('voucher', function ($q) use ($date) {
+                    $q->whereDate('voucher_date', $date);
+                });
             })
             ->selectRaw('SUM(debit - credit) as total')
             ->value('total') ?? 0;
@@ -24,6 +32,7 @@ class ReportService
         return [
             'totalSale' => $totalSale,
             'totalExpense' => $totalExpense,
+            'date' => $date,
         ];
     }
 }
