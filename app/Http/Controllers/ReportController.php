@@ -20,10 +20,8 @@ class ReportController extends Controller
     public function index(\Illuminate\Http\Request $request)
     {
         try {
-            $date = $request->get('date', now()->toDateString());
-
-            $report = app(\App\Services\ReportService::class)->getReport($date);
-            return view('admin.report.index', array_merge($report, ['date' => $date]));
+            $report = app(\App\Services\ReportService::class)->getReport($request);
+            return view('admin.report.index', $report);
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Failed to generate report: ' . $e->getMessage()]);
         }
